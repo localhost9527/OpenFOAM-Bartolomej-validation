@@ -1,0 +1,35 @@
+#!/bin/sh
+cd ${0%/*} || exit 1    # run from this directory
+
+# Source tutorial run functions
+. $WM_PROJECT_DIR/bin/tools/RunFunctions
+
+runApplication blockMesh
+runApplication topoSet
+runApplication extrudeMesh
+#runApplication decomposePar
+
+runApplication $(getApplication)
+
+if ! isTest "$@"
+then
+    runApplication -a foamDictionary system/controlDict -entry endTime -set 4
+    runApplication -a foamDictionary system/controlDict -entry startTime -set 0.5
+    runApplication -a foamDictionary 0.5/T.liquid -entry boundaryField/wall/q -set "uniform 0.57e6"
+    runApplication -a foamDictionary 0.5/U.liquid -entry boundaryField/inlet/type -set "fixedValue"
+    runApplication -a $(getApplication)
+fi
+
+#runApplication reconstructPar -latestTime
+runApplication postProcess -latestTime -func "
+    graphCell
+    (
+        funcName=graph,
+        start=(1.99 0 0),
+        end=(1.99 0.0077 0),
+        fields=(alpha.gas T.liquid T.gas d.gas)
+    )"
+
+#./validation/createGraphs
+
+#------------------------------------------------------------------------------

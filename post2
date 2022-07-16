@@ -1,0 +1,38 @@
+#!/bin/sh
+
+tail -1 postProcessing/plane1alpha/0.5/volFieldValue.dat > validation/alpha.txt
+tail -1 postProcessing/plane2alpha/0.5/volFieldValue.dat >> validation/alpha.txt
+tail -1 postProcessing/plane3alpha/0.5/volFieldValue.dat >> validation/alpha.txt
+tail -1 postProcessing/plane4alpha/0.5/volFieldValue.dat >> validation/alpha.txt
+tail -1 postProcessing/plane5alpha/0.5/volFieldValue.dat >> validation/alpha.txt
+tail -1 postProcessing/plane6alpha/0.5/volFieldValue.dat >> validation/alpha.txt
+tail -1 postProcessing/plane7alpha/0.5/volFieldValue.dat >> validation/alpha.txt
+tail -1 postProcessing/plane8alpha/0.5/volFieldValue.dat >> validation/alpha.txt
+tail -1 postProcessing/plane9alpha/0.5/volFieldValue.dat >> validation/alpha.txt
+tail -1 postProcessing/plane10alpha/0.5/volFieldValue.dat >> validation/alpha.txt
+tail -1 postProcessing/plane11alpha/0.5/volFieldValue.dat >> validation/alpha.txt
+#awk '{print $1}' validation/alpha_exp.csv | paste - validation/alpha.txt
+awk -F, '{print $1}' validation/alpha_exp.csv | paste - validation/alpha.txt > validation/alpha_tmp.txt
+awk '{print $3}' validation/alpha_tmp.txt| awk '{printf("%f\n",$0)}'| paste - validation/alpha_tmp.txt > validation/alpha_tmp2.txt
+sed -i 's/\t/,/g' validation/alpha_tmp2.txt
+awk -F, '{temp = $1; $1 = $2; $2 = temp; print $0}' validation/alpha_tmp2.txt > validation/alpha_cfd.txt
+sed -i 's/ /,/g' validation/alpha_cfd.txt
+rm -rf validation/alpha_tmp*
+if ! which gnuplot > /dev/null 2>&1
+then
+    echo 'gnuplot not found - skipping graph creation' >&2
+    exit 1
+fi
+expFile=validation/alpha_exp.csv
+cfdFile=validation/alpha_cfd.txt
+
+gnuplot<<EOF
+
+	set terminal postscript eps size 8,4 color enhanced font "Helvetica,20"
+	set datafile separator ","
+	set output "./validation/a.eps"
+	set ylabel 'Void fraction (-)'
+	set xlabel 'Axial length (m)'
+	plot "validation/alpha_cfd.txt" u 1:2 w lp lt 1 t 'Simulation',"validation/alpha_exp.csv" u 1:2 w p lt rgb "black" pt 4 t 'Experiment'
+
+EOF
