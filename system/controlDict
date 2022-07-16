@@ -1,0 +1,261 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+  =========                 |
+  \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
+   \\    /   O peration     | Website:  https://openfoam.org
+    \\  /    A nd           | Version:  9
+     \\/     M anipulation  |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    format          ascii;
+    class           dictionary;
+    location        "system";
+    object          controlDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+application     multiphaseEulerFoam;
+
+startFrom       startTime;
+
+startTime       0.5;
+
+stopAt          endTime;
+
+endTime         4;
+
+deltaT          0.0001;
+
+writeControl    adjustableRunTime;
+
+writeInterval   0.5;
+
+purgeWrite      0;
+
+writeFormat     ascii;
+
+writePrecision  9;
+
+writeCompression off;
+
+timeFormat      general;
+
+timePrecision   6;
+
+runTimeModifiable yes;
+
+adjustTimeStep  yes;
+
+maxCo           0.5;
+
+maxDeltaT       0.001;
+
+functions
+{
+    outalpha
+    {
+        type            surfaceFieldValue;
+        functionObjectLibs ( "libfieldFunctionObjects.so" );
+        log             yes;
+        writeFields     false;
+        regionType      patch;
+        name            outlet;
+        operation       average;
+        fields          ( alpha.gas );
+    }
+    plane1alpha
+    {
+        type            volFieldValue;
+        functionObjectLibs ( "libfieldFunctionObjects.so" );
+        log             yes;
+        writeFields     false;
+        regionType      cellZone;
+        name            plane1;
+        operation       volAverage;
+        fields          ( alpha.gas );
+    }
+    plane2alpha
+    {
+        type            volFieldValue;
+        functionObjectLibs ( "libfieldFunctionObjects.so" );
+        log             yes;
+        writeFields     false;
+        regionType      cellZone;
+        name            plane2;
+        operation       volAverage;
+        fields          ( alpha.gas );
+    }
+    plane3alpha
+    {
+        type            volFieldValue;
+        functionObjectLibs ( "libfieldFunctionObjects.so" );
+        log             yes;
+        writeFields     false;
+        regionType      cellZone;
+        name            plane3;
+        operation       volAverage;
+        fields          ( alpha.gas );
+    }
+    plane4alpha
+    {
+        type            volFieldValue;
+        functionObjectLibs ( "libfieldFunctionObjects.so" );
+        log             yes;
+        writeFields     false;
+        regionType      cellZone;
+        name            plane4;
+        operation       volAverage;
+        fields          ( alpha.gas );
+    }
+    plane5alpha
+    {
+        type            volFieldValue;
+        functionObjectLibs ( "libfieldFunctionObjects.so" );
+        log             yes;
+        writeFields     false;
+        regionType      cellZone;
+        name            plane5;
+        operation       volAverage;
+        fields          ( alpha.gas );
+    }
+    plane6alpha
+    {
+        type            volFieldValue;
+        functionObjectLibs ( "libfieldFunctionObjects.so" );
+        log             yes;
+        writeFields     false;
+        regionType      cellZone;
+        name            plane6;
+        operation       volAverage;
+        fields          ( alpha.gas );
+    }
+    plane7alpha
+    {
+        type            volFieldValue;
+        functionObjectLibs ( "libfieldFunctionObjects.so" );
+        log             yes;
+        writeFields     false;
+        regionType      cellZone;
+        name            plane7;
+        operation       volAverage;
+        fields          ( alpha.gas );
+    }
+    plane8alpha
+    {
+        type            volFieldValue;
+        functionObjectLibs ( "libfieldFunctionObjects.so" );
+        log             yes;
+        writeFields     false;
+        regionType      cellZone;
+        name            plane8;
+        operation       volAverage;
+        fields          ( alpha.gas );
+    }
+    plane9alpha
+    {
+        type            volFieldValue;
+        functionObjectLibs ( "libfieldFunctionObjects.so" );
+        log             yes;
+        writeFields     false;
+        regionType      cellZone;
+        name            plane9;
+        operation       volAverage;
+        fields          ( alpha.gas );
+    }
+    plane10alpha
+    {
+        type            volFieldValue;
+        functionObjectLibs ( "libfieldFunctionObjects.so" );
+        log             yes;
+        writeFields     false;
+        regionType      cellZone;
+        name            plane10;
+        operation       volAverage;
+        fields          ( alpha.gas );
+    }
+    plane11alpha
+    {
+        type            volFieldValue;
+        functionObjectLibs ( "libfieldFunctionObjects.so" );
+        log             yes;
+        writeFields     false;
+        regionType      cellZone;
+        name            plane11;
+        operation       volAverage;
+        fields          ( alpha.gas );
+    }
+    outflow
+    {
+        type            surfaceFieldValue;
+        functionObjectLibs ( "libfieldFunctionObjects.so" );
+        log             yes;
+        writeFields     false;
+        regionType      patch;
+        name            outlet;
+        operation       sum;
+        fields          ( alphaRhoPhi.gas alphaRhoPhi.liquid );
+    }
+    inflow
+    {
+        type            surfaceFieldValue;
+        functionObjectLibs ( "libfieldFunctionObjects.so" );
+        log             yes;
+        writeFields     false;
+        regionType      patch;
+        name            inlet;
+        operation       sum;
+        fields          ( alphaRhoPhi.gas alphaRhoPhi.liquid );
+    }
+    outletGas
+    {
+        type            surfaceFieldValue;
+        functionObjectLibs ( "libfieldFunctionObjects.so" );
+        log             yes;
+        writeFields     false;
+        regionType      patch;
+        name            outlet;
+        operation       sum;
+        weightField     alphaRhoPhi.gas;
+        fields          ( h.gas );
+    }
+    outletLiquid
+    {
+        type            surfaceFieldValue;
+        functionObjectLibs ( "libfieldFunctionObjects.so" );
+        log             yes;
+        writeFields     false;
+        regionType      patch;
+        name            outlet;
+        operation       sum;
+        weightField     alphaRhoPhi.liquid;
+        fields          ( h.liquid );
+    }
+    inletGas
+    {
+        type            surfaceFieldValue;
+        functionObjectLibs ( "libfieldFunctionObjects.so" );
+        log             yes;
+        writeFields     false;
+        regionType      patch;
+        name            inlet;
+        operation       sum;
+        weightField     alphaRhoPhi.gas;
+        fields          ( h.gas );
+    }
+    inletLiquid
+    {
+        type            surfaceFieldValue;
+        functionObjectLibs ( "libfieldFunctionObjects.so" );
+        log             yes;
+        writeFields     false;
+        regionType      patch;
+        name            inlet;
+        operation       sum;
+        weightField     alphaRhoPhi.liquid;
+        fields          ( h.liquid );
+    }
+    #includeFunc    writeObjects(d.gas)
+}
+
+
+// ************************************************************************* //

@@ -1,0 +1,221 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+  =========                 |
+  \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
+   \\    /   O peration     | Website:  https://openfoam.org
+    \\  /    A nd           | Version:  9
+     \\/     M anipulation  |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      topoSetDict;
+}
+
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+#include "$FOAM_CASE/system/blockMeshDict"
+
+actions
+(
+    {
+        name    plane1CellSet;
+        type    cellSet;
+        action  new;
+        source  boxToCell;
+        sourceInfo
+        {
+            box (1.124 0 -1) (1.13 0.0077 0);
+        }
+    }
+    {
+        name    plane1;
+        type    cellZoneSet;
+        action  new;
+        source  setToCellZone;
+        sourceInfo{ set plane1CellSet;}
+    }
+    
+    {
+        name    plane2CellSet;
+        type    cellSet;
+        action  new;
+        source  boxToCell;
+        sourceInfo
+        {
+            box (1.142 0 -1) (1.148 0.0077 0);
+        }
+    }
+    {
+        name    plane2;
+        type    cellZoneSet;
+        action  new;
+        source  setToCellZone;
+        sourceInfo{ set plane2CellSet;}
+    }
+    
+    {
+        name    plane3CellSet;
+        type    cellSet;
+        action  new;
+        source  boxToCell;
+        sourceInfo
+        {
+            box (1.204 0 -1) (1.210 0.0077 0);
+        }
+    }
+    {
+        name    plane3;
+        type    cellZoneSet;
+        action  new;
+        source  setToCellZone;
+        sourceInfo{ set plane3CellSet;}
+    }
+    
+    {
+        name    plane4CellSet;
+        type    cellSet;
+        action  new;
+        source  boxToCell;
+        sourceInfo
+        {
+            box (1.266 0 -1) (1.272 0.0077 0);
+        }
+    }
+    {
+        name    plane4;
+        type    cellZoneSet;
+        action  new;
+        source  setToCellZone;
+        sourceInfo{ set plane4CellSet;}
+    }
+    
+    {
+        name    plane5CellSet;
+        type    cellSet;
+        action  new;
+        source  boxToCell;
+        sourceInfo
+        {
+            box (1.395 0 -1) (1.401 0.0077 0);
+        }
+    }
+    {
+        name    plane5;
+        type    cellZoneSet;
+        action  new;
+        source  setToCellZone;
+        sourceInfo{ set plane5CellSet;}
+    }
+    
+    {
+        name    plane6CellSet;
+        type    cellSet;
+        action  new;
+        source  boxToCell;
+        sourceInfo
+        {
+            box (1.497 0 -1) (1.503 0.0077 0);
+        }
+    }
+    {
+        name    plane6;
+        type    cellZoneSet;
+        action  new;
+        source  setToCellZone;
+        sourceInfo{ set plane6CellSet;}
+    }
+    
+    {
+        name    plane7CellSet;
+        type    cellSet;
+        action  new;
+        source  boxToCell;
+        sourceInfo
+        {
+            box (1.591 0 -1) (1.597 0.0077 0);
+        }
+    }
+    {
+        name    plane7;
+        type    cellZoneSet;
+        action  new;
+        source  setToCellZone;
+        sourceInfo{ set plane7CellSet;}
+    }
+    
+    {
+        name    plane8CellSet;
+        type    cellSet;
+        action  new;
+        source  boxToCell;
+        sourceInfo
+        {
+            box (1.675 0 -1) (1.681 0.0077 0);
+        }
+    }
+    {
+        name    plane8;
+        type    cellZoneSet;
+        action  new;
+        source  setToCellZone;
+        sourceInfo{ set plane8CellSet;}
+    }
+    
+    {
+        name    plane9CellSet;
+        type    cellSet;
+        action  new;
+        source  boxToCell;
+        sourceInfo
+        {
+            box (1.764 0 -1) (1.770 0.0077 0);
+        }
+    }
+    {
+        name    plane9;
+        type    cellZoneSet;
+        action  new;
+        source  setToCellZone;
+        sourceInfo{ set plane9CellSet;}
+    }
+    
+    {
+        name    plane10CellSet;
+        type    cellSet;
+        action  new;
+        source  boxToCell;
+        sourceInfo
+        {
+            box (1.893 0 -1) (1.899 0.0077 0);
+        }
+    }
+    {
+        name    plane10;
+        type    cellZoneSet;
+        action  new;
+        source  setToCellZone;
+        sourceInfo{ set plane10CellSet;}
+    }
+    
+    {
+        name    plane11CellSet;
+        type    cellSet;
+        action  new;
+        source  boxToCell;
+        sourceInfo
+        {
+            box (1.986 0 -1) (1.992 0.0077 0);
+        }
+    }
+    {
+        name    plane11;
+        type    cellZoneSet;
+        action  new;
+        source  setToCellZone;
+        sourceInfo{ set plane11CellSet;}
+    }
+);
+
+// ************************************************************************* //
